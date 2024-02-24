@@ -3,19 +3,20 @@ import {Display} from '../display/Display'
 import {Button} from '../button/Button'
 import S from './Counter.module.css'
 
-export const initialCount: number = 0
-
-export const maxCount: number = 5
-
 export const Counter = () => {
-    let [count, setCount] = useState<number>(initialCount)
+    const initialCount: number = 0
+    const incrementStep: number = 1
+    const maxCount: number = 5
+    const [count, setCount] = useState<number>(initialCount)
 
-    const incrementHandler = () => setCount(++count)
+    const incrementHandler = () => {
+        if (count < maxCount) setCount(count + incrementStep)
+    }
 
     const resetHandler = () => setCount(initialCount)
 
     return <div className={S.counterContainer}>
-        <Display count={count}/>
+        <Display count={count} maxCount={maxCount}/>
         <div className={S.buttonContainer}>
             <Button
                 name="inc"
