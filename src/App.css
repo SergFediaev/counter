@@ -7,11 +7,17 @@ html {
 }
 
 body {
-    width: 100vh;
     min-height: 100vh;
     background-color: #282c34;
     display: flex;
-    justify-content: center;
     align-items: center;
     margin: 0 auto;
+}
+
+.app {
+    width: 100vw;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 100px;
+    flex-wrap: wrap;
 }

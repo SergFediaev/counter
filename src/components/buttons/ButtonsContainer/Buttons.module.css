@@ -1,0 +1,8 @@
+.buttonContainer {
+    padding: 40px;
+    display: flex;
+    gap: 100px;
+    border: 6px solid #61dafb;
+    border-radius: 40px;
+    justify-content: center;
+}

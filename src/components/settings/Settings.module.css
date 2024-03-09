@@ -1,0 +1,8 @@
+.settings {
+    display: flex;
+    padding: 40px;
+    flex-direction: column;
+    gap: 40px;
+    border: 6px solid #61dafb;
+    border-radius: 40px;
+}

@@ -1,0 +1,16 @@
+.setting {
+    color: #61dafb;
+    border-radius: 40px;
+    display: flex;
+    flex-direction: column;
+    font-size: 2rem;
+    font-weight: 900;
+    background-color: #282c34;
+    padding: 40px;
+    border: 6px solid #61dafb;
+    gap: 40px;
+}
+
+.settingError {
+    color: #f00;
+}

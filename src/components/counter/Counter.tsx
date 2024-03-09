@@ -1,33 +1,51 @@
-import {useState} from 'react'
-import {Display} from '../display/Display'
-import {Button} from '../button/Button'
-import S from './Counter.module.css'
+import {Display} from './display/Display'
+import {Button} from '../buttons/Button/Button'
+import s from './Counter.module.css'
+import {ButtonsContainer} from '../buttons/ButtonsContainer/ButtonsContainer'
+import {StateValueType} from '../../App'
 
-export const Counter = () => {
-    const initialCount: number = 0
-    const incrementStep: number = 1
-    const maxCount: number = 5
-    const [count, setCount] = useState<number>(initialCount)
+type CounterPropsType = {
+    initialCount: number
+    count: number
+    setCount: (count: number) => void
+    incrementStep: number
+    maxCount: number
+    state: StateValueType
+}
 
+export const Counter = ({
+                            initialCount,
+                            count,
+                            setCount,
+                            incrementStep,
+                            maxCount,
+                            state,
+                        }: CounterPropsType) => {
     const incrementHandler = () => {
         if (count < maxCount) setCount(count + incrementStep)
     }
 
     const resetHandler = () => setCount(initialCount)
 
-    return <div className={S.counterContainer}>
-        <Display count={count} maxCount={maxCount}/>
-        <div className={S.buttonContainer}>
-            <Button
-                name="inc"
-                disabled={count === maxCount}
-                clickCallback={incrementHandler}
-            />
-            <Button
-                name="reset"
-                disabled={count === initialCount}
-                clickCallback={resetHandler}
-            />
-        </div>
+    return <div className={s.counterContainer}>
+        <Display
+            count={count}
+            maxCount={maxCount}
+            state={state}
+        />
+        <ButtonsContainer child={
+            <>
+                <Button
+                    name="inc"
+                    disabled={state !== 'normal' || count === maxCount}
+                    onClick={incrementHandler}
+                />
+                <Button
+                    name="reset"
+                    disabled={state !== 'normal' || initialCount === count}
+                    onClick={resetHandler}
+                />
+            </>
+        }/>
     </div>
 }

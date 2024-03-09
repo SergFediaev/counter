@@ -1,0 +1,24 @@
+.display {
+    flex-grow: 1;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+    font-weight: 900;
+    color: #61dafb;
+    border: 6px solid #61dafb;
+    padding: 60px 0;
+}
+
+.countLimit, .error {
+    color: #f00;
+}
+
+.countLimit {
+    font-size: 5rem;
+}
+
+.info {
+    font-size: 2rem;
+}

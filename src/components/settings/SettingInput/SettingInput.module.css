@@ -1,0 +1,13 @@
+.settingInput {
+    text-align: center;
+    border: solid 4px #61dafb;
+    border-radius: 5px;
+    font-weight: 900;
+    font-size: 1rem;
+    padding: 10px 0;
+}
+
+.settingInputInvalid {
+    background-color: rgb(255, 182, 182);
+    border: solid 4px red;
+}
