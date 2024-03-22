@@ -2,34 +2,21 @@ import React, {useState} from 'react'
 import './App.css'
 import {Counter} from './components/counter/Counter'
 import {Settings} from './components/settings/Settings'
+import {DEFAULT, KEYS, STATE} from './strings'
 
-export type StateValueType = 'edit' | 'error' | 'normal'
-
-const KEYS = {
-    INITIAL_COUNT: 'initialCount',
-    INCREMENT_STEP: 'incrementStep',
-    MAX_COUNT: 'maxCount',
-} as const
-
-const DEFAULT_VALUES = {
-    INITIAL_COUNT: 0,
-    INCREMENT_STEP: 1,
-    MAX_COUNT: 5,
-} as const
+export type StateType = typeof STATE.NORMAL | typeof STATE.EDIT | typeof STATE.ERROR
 
 export const App = () => {
-    const [initialCount, setInitialCount] = useState<number>(Number(localStorage.getItem(KEYS.INITIAL_COUNT) ?? DEFAULT_VALUES.INITIAL_COUNT))
-
-    const [incrementStep] = useState<number>(Number(localStorage.getItem(KEYS.INCREMENT_STEP) ?? DEFAULT_VALUES.INCREMENT_STEP))
-
-    const [maxCount, setMaxCount] = useState<number>(Number(localStorage.getItem(KEYS.MAX_COUNT) ?? 5))
-
-    const [count, setCount] = useState<number>(initialCount)
+    const [initialCount, setInitialCount] = useState(getInitialCount())
+    const [incrementStep] = useState(getIncrementStep())
+    const [maxCount, setMaxCount] = useState(getMaxCount())
+    const [count, setCount] = useState(getCount())
+    const [state, setState] = useState<StateType>(STATE.NORMAL)
 
     const setInitialCountHandler = (initialCount: number) => {
         localStorage.setItem(KEYS.INITIAL_COUNT, initialCount.toString())
         setInitialCount(initialCount)
-        setCount(initialCount)
+        setCountHandler(initialCount)
     }
 
     const setMaxCountHandler = (maxCount: number) => {
@@ -37,9 +24,10 @@ export const App = () => {
         setMaxCount(maxCount)
     }
 
-    const [state, setState] = useState<StateValueType>('normal')
-
-    const setStateHandler = (state: StateValueType) => setState(state)
+    const setCountHandler = (count: number) => {
+        localStorage.setItem(KEYS.COUNT, count.toString())
+        setCount(count)
+    }
 
     return <div className="app">
         <Settings
@@ -48,15 +36,23 @@ export const App = () => {
             maxCount={maxCount}
             setMaxCount={setMaxCountHandler}
             state={state}
-            setState={setStateHandler}
+            setState={setState}
         />
         <Counter
             initialCount={initialCount}
             count={count}
-            setCount={setCount}
+            setCount={setCountHandler}
             incrementStep={incrementStep}
             maxCount={maxCount}
             state={state}
         />
     </div>
 }
+
+const getInitialCount = () => Number(localStorage.getItem(KEYS.INITIAL_COUNT) ?? DEFAULT.INITIAL_COUNT)
+
+const getIncrementStep = () => Number(localStorage.getItem(KEYS.INCREMENT_STEP) ?? DEFAULT.INCREMENT_STEP)
+
+const getMaxCount = () => Number(localStorage.getItem(KEYS.MAX_COUNT) ?? DEFAULT.MAX_COUNT)
+
+const getCount = () => Number(localStorage.getItem(KEYS.COUNT) ?? DEFAULT.INITIAL_COUNT)

@@ -2,7 +2,8 @@ import {Display} from './display/Display'
 import {Button} from '../buttons/Button/Button'
 import s from './Counter.module.css'
 import {ButtonsContainer} from '../buttons/ButtonsContainer/ButtonsContainer'
-import {StateValueType} from '../../App'
+import {StateType} from '../../App'
+import {STATE, TEXT} from '../../strings'
 
 type CounterPropsType = {
     initialCount: number
@@ -10,7 +11,7 @@ type CounterPropsType = {
     setCount: (count: number) => void
     incrementStep: number
     maxCount: number
-    state: StateValueType
+    state: StateType
 }
 
 export const Counter = ({
@@ -36,13 +37,13 @@ export const Counter = ({
         <ButtonsContainer child={
             <>
                 <Button
-                    name="inc"
-                    disabled={state !== 'normal' || count === maxCount}
+                    name={TEXT.INC}
+                    disabled={state !== STATE.NORMAL || count === maxCount}
                     onClick={incrementHandler}
                 />
                 <Button
-                    name="reset"
-                    disabled={state !== 'normal' || initialCount === count}
+                    name={TEXT.RESET}
+                    disabled={state !== STATE.NORMAL || initialCount === count}
                     onClick={resetHandler}
                 />
             </>

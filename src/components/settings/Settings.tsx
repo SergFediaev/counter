@@ -3,16 +3,17 @@ import {Button} from '../buttons/Button/Button'
 import {SettingsContainer} from './SettingsContainer/SettingsContainer'
 import s from './Settings.module.css'
 import {Setting} from './Setting/Setting'
-import {StateValueType} from '../../App'
 import {useEffect, useState} from 'react'
+import {StateType} from '../../App'
+import {STATE, TEXT} from '../../strings'
 
 type SettingsPropsType = {
     initialCount: number
     setInitialCount: (initialCount: number) => void
     maxCount: number
     setMaxCount: (maxCount: number) => void
-    state: StateValueType
-    setState: (state: StateValueType) => void
+    state: StateType
+    setState: (state: StateType) => void
 }
 
 export const Settings = ({
@@ -23,74 +24,48 @@ export const Settings = ({
                              state,
                              setState,
                          }: SettingsPropsType) => {
-    const [isStartValueValid, setStartValueValid] = useState(true)
-
     const [startValue, setStartValue] = useState(initialCount)
-
-    const setStartValueHandler = (newStartValue: number) => {
-        if (newStartValue >= maxValue || newStartValue < 0) {
-            setStartValueValid(false)
-        } else {
-            setStartValueValid(true)
-        }
-
-        setStartValue(newStartValue)
-    }
-
     const [maxValue, setMaxValue] = useState(maxCount)
-
-    const setMaxValueHandler = (newMaxValue: number) => {
-        if (newMaxValue <= startValue || newMaxValue < 1) {
-            setMaxValueValid(false)
-        } else {
-            setMaxValueValid(true)
-        }
-
-        setMaxValue(newMaxValue)
-    }
-
-    const [isMaxValueValid, setMaxValueValid] = useState(true)
+    const error = maxValue <= startValue || startValue < 0
 
     const setSettingsHandler = () => {
-        if (state === 'edit' && isStartValueValid && isMaxValueValid) {
+        if (state === STATE.EDIT) {
             setInitialCount(startValue)
             setMaxCount(maxValue)
         }
     }
 
     useEffect(() => {
-        if (isStartValueValid && isMaxValueValid) {
+        if (!error) {
             if (startValue !== initialCount || maxValue !== maxCount) {
-                setState('edit')
+                setState(STATE.EDIT)
             } else if (startValue === initialCount && maxValue === maxCount) {
-                setState('normal')
+                setState(STATE.NORMAL)
             }
-        } else {
-            setState('error')
-        }
-    }, [initialCount, maxCount, startValue, maxValue, isStartValueValid, isMaxValueValid, setState])
+        } else setState(STATE.ERROR)
+    }, [error, initialCount, maxCount, startValue, maxValue, setState])
 
     return <div className={s.settings}>
         <SettingsContainer child={
             <>
                 <Setting
-                    name="Start value"
+                    name={TEXT.START_VALUE}
                     value={startValue}
-                    setValue={setStartValueHandler}
-                    isValid={isStartValueValid}
+                    setValue={setStartValue}
+                    isValid={!error}
                 />
                 <Setting
-                    name="Max value"
+                    name={TEXT.MAX_VALUE}
                     value={maxValue}
-                    setValue={setMaxValueHandler}
-                    isValid={isMaxValueValid}
+                    setValue={setMaxValue}
+                    isValid={!error}
                 />
             </>
         }/>
         <ButtonsContainer child={<Button
-            name="set"
+            name={TEXT.SET}
             onClick={setSettingsHandler}
-            disabled={!isStartValueValid || !isMaxValueValid || state !== 'edit'}
+            disabled={error || state !== STATE.EDIT}
         />}/>
     </div>
 }

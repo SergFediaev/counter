@@ -1,10 +1,11 @@
 import s from './Display.module.css'
-import {StateValueType} from '../../../App'
+import {StateType} from '../../../App'
+import {STATE, TEXT} from '../../../strings'
 
 type DisplayPropsType = {
     count: number
     maxCount: number
-    state: StateValueType
+    state: StateType
 }
 
 export const Display = ({
@@ -12,6 +13,6 @@ export const Display = ({
                             maxCount,
                             state,
                         }: DisplayPropsType) => <div className={s.display}>
-    {state === 'normal' ? <span className={count === maxCount ? s.countLimit : undefined}>{count}</span> : <span
-        className={`${s.info} ${state === 'error' && s.error}`}>{state === 'error' && 'Incorrect value!'}{state === 'edit' && 'enter values and press \'set\''}</span>}
+    {state === STATE.NORMAL ? <span className={count === maxCount ? s.countLimit : undefined}>{count}</span> : <span
+        className={`${s.info} ${state === STATE.ERROR && s.error}`}>{state === STATE.ERROR && TEXT.INCORRECT_VALUE}{state === STATE.EDIT && TEXT.SET_VALUES}</span>}
 </div>

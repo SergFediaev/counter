@@ -10,13 +10,9 @@ export const SettingInput = ({
                                  value,
                                  setValue,
                                  isValid,
-                             }: SettingInputPropsType) => {
-    const onChangeHandler = (inputValue: string) => setValue(Number(inputValue))
-
-    return <input
-        className={`${s.settingInput} ${!isValid && s.settingInputInvalid}`}
-        type="number"
-        onChange={(event) => onChangeHandler(event.currentTarget.value)}
-        value={value}
-    />
-}
+                             }: SettingInputPropsType) => <input
+    className={`${s.settingInput} ${!isValid && s.settingInputInvalid}`}
+    type="number"
+    onChange={(event) => setValue(Number(event.currentTarget.value))}
+    value={value}
+/>
