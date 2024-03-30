@@ -1,8 +1,9 @@
 import s from './Buttons.module.css'
-import {ReactNode} from 'react'
+import {memo, ReactNode} from 'react'
 
 type ButtonsContainerPropsType = {
-    child: ReactNode
+    children: ReactNode
 }
 
-export const ButtonsContainer = ({child}: ButtonsContainerPropsType) => <div className={s.buttonContainer}>{child}</div>
+export const ButtonsContainer = memo(({children}: ButtonsContainerPropsType) => <div
+    className={s.buttonContainer}>{children}</div>)

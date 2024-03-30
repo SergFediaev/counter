@@ -7,7 +7,7 @@
     padding: 10px 0;
 }
 
-.settingInputInvalid {
+.settingInputError {
     background-color: rgb(255, 182, 182);
     border: solid 4px red;
 }

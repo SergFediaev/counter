@@ -1,8 +1,11 @@
 export const KEYS = {
-    INITIAL_COUNT: 'INITIAL_COUNT',
-    INCREMENT_STEP: 'INCREMENT_STEP',
-    MAX_COUNT: 'MAX_COUNT',
-    COUNT: 'COUNT',
+    COUNTER: 'COUNTER',
+} as const
+
+export const ACTION_TYPES = {
+    SET_COUNT: 'SET_COUNT',
+    SET_SETTINGS: 'SET_SETTINGS',
+    SET_STATE: 'SET_STATE',
 } as const
 
 export const DEFAULT = {
@@ -25,4 +28,8 @@ export const TEXT = {
     RESET: 'reset',
     SET_VALUES: 'enter values and press \'set\'',
     INCORRECT_VALUE: 'Incorrect value!',
+} as const
+
+export const TYPES = {
+    NUMBER: 'number',
 } as const

@@ -1,8 +1,9 @@
-import {ReactNode} from 'react'
+import {memo, ReactNode} from 'react'
 import s from './SettingsContainer.module.css'
 
 type SettingsContainerPropsType = {
-    child: ReactNode
+    children: ReactNode
 }
 
-export const SettingsContainer = ({child}: SettingsContainerPropsType) => <div className={s.setting}>{child}</div>
+export const SettingsContainer = memo(({children}: SettingsContainerPropsType) => <div
+    className={s.setting}>{children}</div>)
