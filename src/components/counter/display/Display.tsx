@@ -14,9 +14,18 @@ export const Display = memo(({
                                  maxCount,
                                  state,
                              }: DisplayPropsType) => {
-    //todo как улучшить подсвечиваемый state?
-    const finalClassName = state === STATE.NORMAL ? (count === maxCount ? s.countLimit : STRINGS.EMPTY) : s.info + (state === STATE.ERROR ? STRINGS.SPACE + s.error : STRINGS.EMPTY)
-    const displayContent = state === STATE.NORMAL ? count : state === STATE.ERROR ? TEXT.INCORRECT_VALUE : TEXT.SET_VALUES
+    let finalClassName = undefined
+    let displayContent = count.toString()
+
+    if (state === STATE.NORMAL) {
+        if (count === maxCount) finalClassName = s.countLimit
+    } else {
+        finalClassName = s.info
+        if (state === STATE.ERROR) {
+            displayContent = TEXT.INCORRECT_VALUE
+            finalClassName += STRINGS.SPACE + s.error
+        } else displayContent = TEXT.SET_VALUES
+    }
 
     return <div className={s.display}>
         <span className={finalClassName}>{displayContent}</span>

@@ -31,7 +31,6 @@ export const Counter = memo(() => {
     const resetHandler = () => dispatch(setCount(initialCount))
     //endregion
 
-    //todo прокидывать пропсы ниже или вместо этого сразу доставить их useSelector'ом в компоненте?
     return <div className={s.counterContainer}>
         <Display count={count}
                  maxCount={maxCount}

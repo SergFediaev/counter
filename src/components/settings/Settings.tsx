@@ -31,8 +31,7 @@ export const Settings = memo(() => {
                 dispatch(setState(STATE.NORMAL))
             }
         } else dispatch(setState(STATE.ERROR))
-        //todo зачем тут следить за предлагаемым dispatch?
-    }, [error, initialCount, maxCount, maxValue, startValue])
+    }, [dispatch, error, initialCount, maxCount, maxValue, startValue])
     //endregion
 
     const setSettingsHandler = () => {
