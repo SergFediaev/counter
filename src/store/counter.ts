@@ -13,3 +13,5 @@ export const getCounter = (): CounterType => {
     const counter = localStorage.getItem(KEYS.COUNTER)
     return counter ? JSON.parse(counter) as CounterType : defaultCounter
 }
+
+export const setCounterLocalStorage = (counter: CounterType) => localStorage.setItem(KEYS.COUNTER, JSON.stringify(counter))

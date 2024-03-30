@@ -33,3 +33,8 @@ export const TEXT = {
 export const TYPES = {
     NUMBER: 'number',
 } as const
+
+export const STRINGS = {
+    EMPTY: '',
+    SPACE: ' ',
+} as const

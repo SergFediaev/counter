@@ -1,5 +1,5 @@
 import s from './Display.module.css'
-import {STATE, TEXT} from '../../../strings'
+import {STATE, STRINGS, TEXT} from '../../../strings'
 import {memo} from 'react'
 import {StateType} from '../../../store/counterTypes'
 
@@ -13,7 +13,11 @@ export const Display = memo(({
                                  count,
                                  maxCount,
                                  state,
-                             }: DisplayPropsType) => <div className={s.display}>
-    {state === STATE.NORMAL ? <span className={count === maxCount ? s.countLimit : undefined}>{count}</span> : <span
-        className={`${s.info} ${state === STATE.ERROR && s.error}`}>{state === STATE.ERROR && TEXT.INCORRECT_VALUE}{state === STATE.EDIT && TEXT.SET_VALUES}</span>}
-</div>)
+                             }: DisplayPropsType) => {
+    const finalClassName = state === STATE.NORMAL ? (count === maxCount ? s.countLimit : STRINGS.EMPTY) : s.info + (state === STATE.ERROR ? STRINGS.SPACE + s.error : STRINGS.EMPTY)
+    const displayContent = state === STATE.NORMAL ? count : state === STATE.ERROR ? TEXT.INCORRECT_VALUE : TEXT.SET_VALUES
+
+    return <div className={s.display}>
+        <span className={finalClassName}>{displayContent}</span>
+    </div>
+})

@@ -5,20 +5,19 @@ import s from './Settings.module.css'
 import {Setting} from './Setting/Setting'
 import {memo, useEffect, useState} from 'react'
 import {STATE, TEXT} from '../../strings'
-import {CounterType, StateType} from '../../store/counterTypes'
+import {CounterType} from '../../store/counterTypes'
+import {useDispatch, useSelector} from 'react-redux'
+import {AppRootStateType} from '../../store/store'
+import {setSettings, setState} from '../../store/counterActions'
 
-type SettingsPropsType = {
-    counter: CounterType
-    setSettings: (initialCount: number, maxCount: number) => void
-    setState: (state: StateType) => void
-}
-
-export const Settings = memo(({
-                                  counter: {initialCount, maxCount, state},
-                                  setSettings,
-                                  setState,
-                              }: SettingsPropsType) => {
+export const Settings = memo(() => {
     //region Local state.
+    const {
+        initialCount,
+        maxCount,
+        state,
+    }: CounterType = useSelector<AppRootStateType, CounterType>(state => state.counter)
+    const dispatch = useDispatch()
     const [startValue, setStartValue] = useState(initialCount)
     const [maxValue, setMaxValue] = useState(maxCount)
     const error = maxValue <= startValue || startValue < 0
@@ -27,16 +26,16 @@ export const Settings = memo(({
     useEffect(() => {
         if (!error) {
             if (startValue !== initialCount || maxValue !== maxCount) {
-                setState(STATE.EDIT)
+                dispatch(setState(STATE.EDIT))
             } else if (startValue === initialCount && maxValue === maxCount) {
-                setState(STATE.NORMAL)
+                dispatch(setState(STATE.NORMAL))
             }
-        } else setState(STATE.ERROR)
+        } else dispatch(setState(STATE.ERROR))
     }, [error, initialCount, maxCount, maxValue, startValue])
     //endregion
 
     const setSettingsHandler = () => {
-        if (state === STATE.EDIT) setSettings(startValue, maxValue)
+        if (state === STATE.EDIT) dispatch(setSettings(startValue, maxValue))
     }
 
     return <div className={s.settings}>
